@@ -1,7 +1,7 @@
 {
     "name": "mouf/utils.graphics.mouf-imagine-addons",
     "description": "Extending Imagine filters for easier filter definition",
-    "keywords": ["imagine", watermark", "mouf"],
+    "keywords": ["imagine", "watermark", "mouf"],
     "homepage": "https://github.com/thecodingmachine/utils.graphics.mouf-imagine-addons",
     "type": "mouf-library",
     "license": "MIT",
