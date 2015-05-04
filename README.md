@@ -11,11 +11,11 @@ The class `SmartWatermarkFilter` allows you to easily merge your image with a wa
 
 As a result, with an instance like that :
 
-<img width="80%" src="https://raw.githubusercontent.com/thecodingmachine/utils.graphics.mouf-imagine-addons/1.0/doc/img/watermark-instance.png" />
+<img width="80%" src="doc/img/watermark-instance.png" />
 
 ... injected in an `ImagePresetController` of the *utils.graphics.mouf-imagine* package, here is what you will get :
 
-<img width="80%" src="https://raw.githubusercontent.com/thecodingmachine/utils.graphics.mouf-imagine-addons/1.0/doc/img/watermark-sample.jpg" />
+<img width="80%" src="doc/img/watermark-sample.jpg" />
 
 ## Coming soon
 
