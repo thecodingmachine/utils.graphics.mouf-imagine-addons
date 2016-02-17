@@ -9,6 +9,20 @@ use Imagine\Image\Point;
 use Maagi\ImagineFocalResizer\FocalPoint;
 use Maagi\ImagineFocalResizer\Resizer;
 
+/**
+ * This filter is a wrapper around the maagi/imagine-focalresizer package.
+ * It allows the ImagePresetDisplayer instances to add a filter that will
+ * crop the image from a "user defined" center rather then the default center.
+ *
+ * Just add x & y parameters in the URL (didn't found better solution from now).
+ * X and Y will are absolute pixel coordinates in the original image.
+ *
+ * Note : the input image resized before the crop happens.
+ * It is resized so that at least on of the dimension fits the bounding box ($size)
+ *
+ * Class FocalCropFilter
+ * @package Mouf\Utils\Graphics\ImagineAddons
+ */
 class FocalCropFilter implements FilterInterface{
 
     /**
@@ -17,7 +31,7 @@ class FocalCropFilter implements FilterInterface{
     private $size;
 
     /**
-     * @param BoxInterface $size
+     * @param BoxInterface $size : the final size of the image
      */
     function __construct(BoxInterface $size)
     {
@@ -49,13 +63,10 @@ class FocalCropFilter implements FilterInterface{
 
 
         return $resizer->resize(
-            $image,
-            // target size
-            $this->size,
-            // crop around the point at 50% to the right and 70% to the top
-            new FocalPoint($focalX, $focalY),
-            // Imagine filter for resize (optional)
-            ImageInterface::FILTER_UNDEFINED
+            $image, //input image
+            $this->size, // target size
+            new FocalPoint($focalX, $focalY), // crop around the point at $focalX % top and $focalY % right from the center
+            ImageInterface::FILTER_UNDEFINED  // Imagine filter for resize (optional)
         );
     }
 
