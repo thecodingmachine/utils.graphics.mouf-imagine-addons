@@ -15,7 +15,8 @@ use Maagi\ImagineFocalResizer\Resizer;
  * crop the image from a "user defined" center rather then the default center.
  *
  * Just add x & y parameters in the URL (didn't found better solution from now).
- * X and Y will are absolute pixel coordinates in the original image.
+ * X and Y will are relative coordinates in the original image :
+ * 0 to 100 starting from the top left corner
  *
  * Note : the input image resized before the crop happens.
  * It is resized so that at least on of the dimension fits the bounding box ($size)
@@ -47,16 +48,15 @@ class FocalCropFilter implements FilterInterface{
         $resizer = new Resizer();
 
 
+        /* convert coordinates from top left origin to center (all relative, 0 -> 100) */
         //TODO: find a better way to retrieve these params (x &  y)
         if (isset($_GET["x"])){
-            $xFocus = $_GET["x"];
-            $focalX = 2 * $xFocus / $image->getSize()->getWidth() - 1;
+            $focalX = 2 * ($_GET["x"] - 50);
         }else{
             $focalX = 0;
         }
         if (isset($_GET["y"])){
-            $yFocus = $_GET["y"];
-            $focalY = 2 * $yFocus / $image->getSize()->getHeight() - 1;
+            $focalY = 2 * 2 * ($_GET["y"] - 50);
         }else{
             $focalY = 0;
         }
