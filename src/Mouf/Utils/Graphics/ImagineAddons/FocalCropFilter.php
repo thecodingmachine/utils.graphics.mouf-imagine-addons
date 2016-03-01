@@ -51,12 +51,12 @@ class FocalCropFilter implements FilterInterface{
         /* convert coordinates from top left origin to center (all relative, 0 -> 100) */
         //TODO: find a better way to retrieve these params (x &  y)
         if (isset($_GET["x"])){
-            $focalX = 2 * ($_GET["x"] - 50);
+            $focalX = (2 * ($_GET["x"] - 50))/100;
         }else{
             $focalX = 0;
         }
         if (isset($_GET["y"])){
-            $focalY = 2 * 2 * ($_GET["y"] - 50);
+            $focalY = (2 * ($_GET["y"] - 50))/100;
         }else{
             $focalY = 0;
         }
