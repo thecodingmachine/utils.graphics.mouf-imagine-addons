@@ -4,6 +4,7 @@ namespace Mouf\Utils\Graphics\ImagineAddons;
 
 use Imagine\Filter\FilterInterface;
 use Imagine\Image\AbstractImagine;
+use Imagine\Image\Box;
 use Imagine\Image\BoxInterface;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
@@ -52,6 +53,20 @@ class SmartWatermarkFilter implements FilterInterface{
     private $imagine;
 
     /**
+     * @var int
+     */
+    private $relativeSize;
+
+    /**
+     * The size of the watermark relatively to the original image (between 0 and 1).
+     *
+     * @param int $relativeSize
+     */
+    public function setRelativeSize($relativeSize) {
+        $this->relativeSize = $relativeSize;
+    }
+
+    /**
      * @param string $position
      * @param BoxInterface $waterMarkSize
      * @param string $waterMarkPath
@@ -65,16 +80,20 @@ class SmartWatermarkFilter implements FilterInterface{
         $this->imagine = $imagine;
     }
 
-
     /**
      * @param ImageInterface $image
      *
      * @return ImageInterface
      */
     public function apply(ImageInterface $image){
-        $watermark = $this->imagine->open(ROOT_PATH . $this->waterMarkPath)->thumbnail($this->waterMarkSize);
-        $watermarkSize = $watermark->getSize();
         $size = $image->getSize();
+        if (isset($this->relativeSize)) {
+            $watermarkBox = new Box($size->getWidth() * $this->relativeSize, $size->getHeight() * $this->relativeSize);
+        } else {
+            $watermarkBox = $this->waterMarkSize;
+        }
+        $watermark = $this->imagine->open(ROOT_PATH . $this->waterMarkPath)->thumbnail($watermarkBox);
+        $watermarkSize = $watermark->getSize();
 
         if (isset($_GET["w"]) && $_GET["w"] == 0) {
             return $image;
