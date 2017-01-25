@@ -53,6 +53,11 @@ class SmartWatermarkFilter implements FilterInterface{
     private $imagine;
 
     /**
+     * @var int
+     */
+    private $relativeSize;
+
+    /**
      * The size of the watermark relatively to the original image (between 0 and 1).
      *
      * @param int $relativeSize
